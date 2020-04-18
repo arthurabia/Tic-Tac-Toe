@@ -1,0 +1,30 @@
+
+*{
+    text-align: center;
+}
+
+.wrapper{
+    display: grid;
+    justify-items: center;
+    row-gap: 20px;
+}
+
+.gameArea{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: 50vw;
+    height: 50vw;
+    max-width: 700px;
+    max-height: 700px;
+    min-width: 200px;
+    min-height: 200px;
+}
+
+.cell{
+    border : 3px solid red;
+}
+
+.row1{
+    border: 10px solid black;
+}

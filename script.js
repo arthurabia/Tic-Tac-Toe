@@ -1,101 +1,153 @@
-//Pseudocode pour commencer
 
-const GameBoard = (() => {
-    const newGameBoardArray = () => {['','','',
-                            '','','',
-                            '','','']}
-    return {newGameBoardArray}
-})();
 
 const players = (() =>{
     const Player = (name,symbol) => {
-        const score = 0;
+        let score = 0;
         return {name, score, symbol};
     };
-    const playerOne = Player('playerOne','X');
-    const playerTwo = Player('playerTwo','O');
-    const activePlayer = playerOne;
+    
+    const playerOne = Player('P1','X');
+    const playerTwo = Player('P2','O');
+    let activePlayer = playerOne;
     const defineNewActivePlayer = () =>{
-        activePlayer = activePlayer == playerOne ? playerTwo : playerOne
-    } 
-    return {playerOne, playerTwo, activePlayer, defineNewActivePlayer}    
+        let newActivePlayer = ((players.activePlayer == playerOne) ? playerTwo : playerOne)
+        players.activePlayer = newActivePlayer
+        } 
+    return {playerOne, playerTwo, defineNewActivePlayer, activePlayer}    
 })();
 
 const GameFlow = (() =>{
+
+    var gameOngoing = false;
+
+    const isGameOngoing = () => {
+        return gameOngoing
+    }
+
     const Cell = (number) => {
-        const symbol = '';
+        let symbol = '';
         return {symbol, number};
     };
-    const startGame = () => {
-        const gameBoard = GameBoard.newGameBoardArray();
-        return {gameBoard}
-    } 
+
     const cells = [];
     for (i=0; i<9; i++)
         cells[i] = Cell(i+1);
 
     const isItWin = () => {
-    const possibleWins = [[cells[0],cells[1],cells[2]],
-                          [cells[3],cells[4],cells[5]],
-                          [cells[6],cells[7],cells[8]], //the three horizontal wins
-                          [cells[0],cells[3],cells[6]],
-                          [cells[1],cells[4],cells[7]],
-                          [cells[2],cells[5],cells[8]], //the three vertical wins
-                          [cells[0],cells[4],cells[8]],
-                          [cells[2],cells[4],cells[6]]]; //the three diagonal ones
-    for array of possibleWins {
-        if array[0] == array[1] && array[1] == array[2] && array[0] != ''
-            return (array[0] == 'x' ? "PlayerOne" : "PlayerTwo")
+        const possibleWins = [[cells[0],cells[1],cells[2]],
+                            [cells[3],cells[4],cells[5]],
+                            [cells[6],cells[7],cells[8]], //the three horizontal wins
+                            [cells[0],cells[3],cells[6]],
+                            [cells[1],cells[4],cells[7]],
+                            [cells[2],cells[5],cells[8]], //the three vertical wins
+                            [cells[0],cells[4],cells[8]],
+                            [cells[2],cells[4],cells[6]]]; //the three diagonal ones
+        for (list of possibleWins) {
+            if (list[0].symbol == list[1].symbol && list[1].symbol == list[2].symbol && list[0].symbol != ""){
+                return(list)
+            }
+        }
+        return false //If it returns false on the last check, then it's a draw !
     }
-        
-                        }
-    return {startGame, cells}
+
+    const highlightCombo = () => {
+        var arrayCombo = isItWin();
+        for (item of arrayCombo) {
+            console.log(item.number) //rajouter le changement de couleur ici
+        }
+    }
+
+    var turnsElapsed = 0;
+
+    const howManyTurns = () => {
+        turnsElapsed ++;
+        return turnsElapsed
+    }
+
+    const isItEndgame = () =>{
+        return (howManyTurns() >= 9)
+    }
+
+    const stopGame = () =>{
+        gameOngoing = false
+        GameFlow.renderGameArea()
+    }
+
+    const defineWinner = (word) => {
+        stopGame()
+        switch(word){
+            case 'win':
+                //players.activePlayer.score++
+                players.defineNewActivePlayer()
+                console.log(`The winner is ${players.activePlayer.name}`)
+                highlightCombo()
+                //render le score
+                break;
+            case 'draw':
+                console.log(`This is a draw`)
+                break;
+        }
+    }
+
+    const renderGameArea = () =>{
+        let gridArea = document.getElementsByClassName('gameArea')[0];
+        gridArea.innerHTML = "";
+        for (cell of cells) {
+            makeGrid(cell.symbol)
+        }
+    }
+
+    const makeGrid = (symbol) =>{
+        let gridArea = document.getElementsByClassName('gameArea')[0];
+        var gridPart = document.createElement('div')
+        gridPart.classList.add('cell')
+        gridPart.classList.add('pos'+cell.number)
+        gridPart.setAttribute('number',cell.number)
+        gridPart.innerText = symbol
+        gridPart.addEventListener('click',function(){
+            var cellNumber = this.getAttribute('number')
+            onCellclick(cellNumber)
+        })
+        gridArea.appendChild(gridPart)
+    }
+
+
+    const startGame = () => {
+        turnsElapsed = 0
+        for (cell of cells)
+            cell.symbol = ""
+        renderGameArea();
+        gameOngoing = true
+    } 
+
+    return {startGame, cells, isItWin, isItEndgame, isGameOngoing, defineWinner, renderGameArea}
 })()
 
-const onCellClick = () => {
-    GameFlow.cells[this.number].symbol = players.activePlayer.symbol //ca reprend le nombre de la ceullue cliquée
-    changer la classe de la celle;
-    GameFlow.defineNewActivePlayer(); 
-    check if a line is lmade
+
+const playOnCell = (cellNumber) => {
+    if (GameFlow.cells[cellNumber-1].symbol == '') {
+        GameFlow.cells[cellNumber-1].symbol = players.activePlayer.symbol //ca reprend le nombre de la ceullue cliquée
+        console.log(players.activePlayer)
+        players.defineNewActivePlayer()
+        GameFlow.isItWin()
+        GameFlow.renderGameArea()
+    }
+}
+
+const onCellclick = (cellNumber) =>{
+    if (GameFlow.isGameOngoing()) {
+        playOnCell(cellNumber)
+        if (GameFlow.isItWin()) {
+            GameFlow.defineWinner('win')
+        }
+        else if (GameFlow.isItEndgame()) {
+            GameFlow.defineWinner('draw')
+        } 
+    }    
 }
 
 
-    gameArea is an array of cells
-    si le nombre de cells empty est inférieur à 1
-        le jeu est fini
-        
-
-define gameFlow
-a game is started or not
-a game is win or not
-while the game is not win and started
-    activePlayer est égal à (P1 ou P2)
-    la fonction switchturn après chaque coup
-        si P1 est actif, 
-            P1 est inactif et p2 est actif
-        si P2 est actif
-            P1 est actif et p2 est inactif  
-
-
-    define cells inside gameArea
-        a cell has a number
-        a cell can be filled a cell with the type of the active player,
-
-    define lines inside gameArea
-        lines are an array of all lines
-        a line is composed of 3 with cells, define all lines possibles
-        a line is of type empty, near-filled, or filled
-            a line is empty if all cells are of type empty
-            a line is near-fileld if two cells are not of type empty
-            a line is filled if all cells are not of type empty
-
-    define player
-        a player is either of type P1 or P2
-        a player is eother X or O
-        a player is either active or passive, and it alternates
-            function switchTurn
-
-        a player has a score, which increments with every win
-
-
-
+GameFlow.renderGameArea()
+document.getElementsByName('buttonOne')[0].addEventListener('click',function(){
+    GameFlow.startGame()
+})
