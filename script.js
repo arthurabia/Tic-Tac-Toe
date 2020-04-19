@@ -6,8 +6,8 @@ const players = (() =>{
         return {name, score, symbol};
     };
     
-    const playerOne = Player('P1','X');
-    const playerTwo = Player('P2','O');
+    const playerOne = Player('Louise','X');
+    const playerTwo = Player('Arty','O');
     let activePlayer = playerOne;
     const defineNewActivePlayer = () =>{
         let newActivePlayer = ((players.activePlayer == playerOne) ? playerTwo : playerOne)
@@ -47,14 +47,16 @@ const GameFlow = (() =>{
                 return(list)
             }
         }
-        return false //If it returns false on the last check, then it's a draw !
+        return false 
     }
 
     const highlightCombo = () => {
         var arrayCombo = isItWin();
         for (item of arrayCombo) {
-            console.log(item.number) //rajouter le changement de couleur ici
+            console.log(item.number)
+            document.getElementsByClassName('cell')[item.number-1].classList.toggle('win') //rajouter le changement de couleur ici
         }
+        document.getElementsByName('buttonOne')[0].classList.toggle('restart')
     }
 
     var turnsElapsed = 0;
@@ -71,6 +73,7 @@ const GameFlow = (() =>{
     const stopGame = () =>{
         gameOngoing = false
         GameFlow.renderGameArea()
+
     }
 
     const defineWinner = (word) => {
@@ -81,7 +84,7 @@ const GameFlow = (() =>{
                 players.defineNewActivePlayer()
                 console.log(`The winner is ${players.activePlayer.name}`)
                 highlightCombo()
-                //render le score
+                document.getElementsByClassName('score')[0].innerText = `C'est ${players.activePlayer.name} qu'a gagné ! Nananèreuh.`
                 break;
             case 'draw':
                 console.log(`This is a draw`)
@@ -90,6 +93,7 @@ const GameFlow = (() =>{
     }
 
     const renderGameArea = () =>{
+        document.getElementsByClassName('score')[0].innerText = ``
         let gridArea = document.getElementsByClassName('gameArea')[0];
         gridArea.innerHTML = "";
         for (cell of cells) {
@@ -102,17 +106,22 @@ const GameFlow = (() =>{
         var gridPart = document.createElement('div')
         gridPart.classList.add('cell')
         gridPart.classList.add('pos'+cell.number)
+        if (symbol != "") {
+            console.log(typeof(symbol))
+            gridPart.classList.add(symbol)
+        }
         gridPart.setAttribute('number',cell.number)
-        gridPart.innerText = symbol
         gridPart.addEventListener('click',function(){
             var cellNumber = this.getAttribute('number')
             onCellclick(cellNumber)
         })
+
         gridArea.appendChild(gridPart)
     }
 
 
     const startGame = () => {
+        document.getElementsByName('buttonOne')[0].classList.remove('restart')
         turnsElapsed = 0
         for (cell of cells)
             cell.symbol = ""
@@ -150,4 +159,5 @@ const onCellclick = (cellNumber) =>{
 GameFlow.renderGameArea()
 document.getElementsByName('buttonOne')[0].addEventListener('click',function(){
     GameFlow.startGame()
+    this.value = "Restart the game"
 })

@@ -1,12 +1,23 @@
 
 *{
     text-align: center;
+    background-color: #202040;
+    font-size: 38px;
+    color: #ff6363;
+    font-family: 'Chewy', cursive;
 }
+
+
 
 .wrapper{
     display: grid;
     justify-items: center;
     row-gap: 20px;
+}
+
+.header{
+    font-size: 42px;
+    margin-top: 50px;
 }
 
 .gameArea{
@@ -19,12 +30,41 @@
     max-height: 700px;
     min-width: 200px;
     min-height: 200px;
+    margin: 50px;
 }
 
 .cell{
-    border : 3px solid red;
+    border : 1px solid #543864;
 }
 
-.row1{
-    border: 10px solid black;
+
+.win{
+    border: 3px solid #ffbd69;
+}
+
+.X{
+    background-image: url(assets/luiz.jpg);
+    background-position: center; 
+    background-size: 50%;
+}
+
+
+.O{
+    background-image: url(assets/arty.jpg);
+    background-position: center; 
+    background-size: 50%;
+
+}
+
+.button{
+    padding: 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    border: none;
+    background-color: #ff6363;
+    color: #202040
+}
+
+.restart{
+    background-color: #ffbd69;
 }
