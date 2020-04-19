@@ -27,7 +27,6 @@
     font-family: 'Vollkorn', serif;
     background-image: none;
     font-size: 42px;
-    margin-top: 30px;
     color : #543864
 }
 
@@ -42,7 +41,6 @@
     max-height: 700px;
     min-width: 200px;
     min-height: 200px;
-    margin: 20px;
     border: #202040 2px solid;
     border-radius: 8px;
 
@@ -80,7 +78,7 @@
     background-image: none;
     padding: 20px;
     border-radius: 8px;
-    font-weight: 100;
+    font-weight: 500;
     border-radius: 8px;
     background-color: #ff6363;
     color: #FFFFFF
