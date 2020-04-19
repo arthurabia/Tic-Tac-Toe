@@ -8,7 +8,8 @@ const players = (() =>{
     
     const playerOne = Player('Louise','X');
     const playerTwo = Player('Arty','O');
-    let activePlayer = playerOne;
+    const arrayOfPlayers = [playerOne,playerTwo]
+    let activePlayer = arrayOfPlayers[Math.floor(Math.random()*2)]
     const defineNewActivePlayer = () =>{
         let newActivePlayer = ((players.activePlayer == playerOne) ? playerTwo : playerOne)
         players.activePlayer = newActivePlayer
@@ -95,7 +96,6 @@ const GameFlow = (() =>{
     }
 
     const renderGameArea = () =>{
-        document.getElementsByClassName('score')[0].innerText = ``
         let gridArea = document.getElementsByClassName('gameArea')[0];
         gridArea.innerHTML = "";
         for (cell of cells) {
@@ -123,6 +123,8 @@ const GameFlow = (() =>{
 
 
     const startGame = () => {
+        players.defineNewActivePlayer()
+        displayPlayersName()
         document.getElementsByName('buttonOne')[0].classList.remove('restart')
         turnsElapsed = 0
         for (cell of cells)
@@ -140,6 +142,7 @@ const playOnCell = (cellNumber) => {
         GameFlow.cells[cellNumber-1].symbol = players.activePlayer.symbol //ca reprend le nombre de la ceullue cliquée
         console.log(players.activePlayer)
         players.defineNewActivePlayer()
+        displayPlayersName()
         GameFlow.isItWin()
         GameFlow.renderGameArea()
     }
@@ -155,6 +158,10 @@ const onCellclick = (cellNumber) =>{
             GameFlow.defineWinner('draw')
         } 
     }    
+}
+
+const displayPlayersName = () => {
+    document.getElementsByClassName('score')[0].innerText = `À ${players.activePlayer.name} de jouer !`
 }
 
 
