@@ -85,11 +85,11 @@ const GameFlow = (() =>{
                 players.defineNewActivePlayer()
                 console.log(`The winner is ${players.activePlayer.name}`)
                 highlightCombo()
-                document.getElementsByClassName('score')[0].innerText = `C'est ${players.activePlayer.name} qu'a gagné ! Héhéhéhé !`
+                document.getElementsByClassName('score')[0].innerText = `${players.activePlayer.name} a gagné, contre toute attente.`
                 break;
             case 'draw':
                 console.log(`This is a draw`)
-                document.getElementsByClassName('score')[0].innerText = `C'est une égalité ! Bravo les génies !`
+                document.getElementsByClassName('score')[0].innerText = `C'est une égalité...Décevant.`
                 document.getElementsByName('buttonOne')[0].classList.toggle('restart')
                 break;
         }
@@ -168,5 +168,5 @@ const displayPlayersName = () => {
 GameFlow.renderGameArea()
 document.getElementsByName('buttonOne')[0].addEventListener('click',function(){
     GameFlow.startGame()
-    this.value = "Restart the game"
+    this.value = "Recommencer"
 })

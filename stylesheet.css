@@ -1,26 +1,38 @@
 
 *{
     text-align: center;
-    background-color: #202040;
+    background-image: url(assets/tic-tac-toe.png);
     font-size: 38px;
     color: #ff6363;
     font-family: 'Chewy', cursive;
 }
 
-
+#page {
+    background-image: none;
+}
 
 .wrapper{
+    background-image: none;
     display: grid;
     justify-items: center;
     row-gap: 20px;
+    margin: 40px;
+}
+
+.score{
+    background-image: none;
 }
 
 .header{
+    font-family: 'Vollkorn', serif;
+    background-image: none;
     font-size: 42px;
     margin-top: 30px;
+    color : #543864
 }
 
 .gameArea{
+    background-image: none;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -30,39 +42,47 @@
     max-height: 700px;
     min-width: 200px;
     min-height: 200px;
-    margin: 30px;
+    margin: 20px;
+    border: #202040 2px solid;
+    border-radius: 8px;
+
 }
 
 .cell{
-    border : 1px solid #543864;
+    background-image: none;
+    border : 2px solid #543864;
+    background-color: white;
 }
 
 
 .win{
-    border: 3px solid #ffbd69;
+    background-color: #ffbd69; 
 }
 
 .X{
-    background-image: url(assets/luiz.jpg);
+    background-image: url(assets/cross.png);
     background-position: center; 
+    background-repeat: no-repeat;
     background-size: 50%;
 }
 
 
 .O{
-    background-image: url(assets/arty.jpg);
+    background-image: url(assets/circle.png);
     background-position: center; 
+    background-repeat: no-repeat;
     background-size: 50%;
 
 }
 
 .button{
+    background-image: none;
     padding: 20px;
     border-radius: 8px;
-    font-weight: 600;
-    border: none;
+    font-weight: 100;
+    border-radius: 8px;
     background-color: #ff6363;
-    color: #202040
+    color: #FFFFFF
 }
 
 .restart{
