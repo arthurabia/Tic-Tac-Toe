@@ -84,10 +84,12 @@ const GameFlow = (() =>{
                 players.defineNewActivePlayer()
                 console.log(`The winner is ${players.activePlayer.name}`)
                 highlightCombo()
-                document.getElementsByClassName('score')[0].innerText = `C'est ${players.activePlayer.name} qu'a gagné ! Nananèreuh.`
+                document.getElementsByClassName('score')[0].innerText = `C'est ${players.activePlayer.name} qu'a gagné ! Héhéhéhé !`
                 break;
             case 'draw':
                 console.log(`This is a draw`)
+                document.getElementsByClassName('score')[0].innerText = `C'est une égalité ! Bravo les génies !`
+                document.getElementsByName('buttonOne')[0].classList.toggle('restart')
                 break;
         }
     }

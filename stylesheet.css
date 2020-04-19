@@ -17,7 +17,7 @@
 
 .header{
     font-size: 42px;
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 .gameArea{
@@ -30,7 +30,7 @@
     max-height: 700px;
     min-width: 200px;
     min-height: 200px;
-    margin: 50px;
+    margin: 30px;
 }
 
 .cell{
