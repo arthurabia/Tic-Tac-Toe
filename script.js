@@ -6,8 +6,8 @@ const players = (() =>{
         return {name, score, symbol};
     };
     
-    const playerOne = Player('Louison','X');
-    const playerTwo = Player('Arty','O');
+    const playerOne = Player('Alice','X');
+    const playerTwo = Player('Bob','O');
     const arrayOfPlayers = [playerOne,playerTwo]
     let activePlayer = arrayOfPlayers[Math.floor(Math.random()*2)]
     const defineNewActivePlayer = () =>{
@@ -85,11 +85,11 @@ const GameFlow = (() =>{
                 players.defineNewActivePlayer()
                 console.log(`The winner is ${players.activePlayer.name}`)
                 highlightCombo()
-                document.getElementsByClassName('score')[0].innerText = `${players.activePlayer.name} a gagné, contre toute attente.`
+                document.getElementsByClassName('score')[0].innerText = `${players.activePlayer.name} won, it seems.`
                 break;
             case 'draw':
                 console.log(`This is a draw`)
-                document.getElementsByClassName('score')[0].innerText = `C'est une égalité...Décevant.`
+                document.getElementsByClassName('score')[0].innerText = `A draw...How disappointing.`
                 document.getElementsByName('buttonOne')[0].classList.toggle('restart')
                 break;
         }
@@ -161,12 +161,12 @@ const onCellclick = (cellNumber) =>{
 }
 
 const displayPlayersName = () => {
-    document.getElementsByClassName('score')[0].innerText = `À ${players.activePlayer.name} de jouer !`
+    document.getElementsByClassName('score')[0].innerText = `${players.activePlayer.name}'s turn !`
 }
 
 
 GameFlow.renderGameArea()
 document.getElementsByName('buttonOne')[0].addEventListener('click',function(){
     GameFlow.startGame()
-    this.value = "Recommencer"
+    this.value = "Restart"
 })
