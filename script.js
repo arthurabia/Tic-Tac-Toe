@@ -6,7 +6,7 @@ const players = (() =>{
         return {name, score, symbol};
     };
     
-    const playerOne = Player('Louise','X');
+    const playerOne = Player('Louison','X');
     const playerTwo = Player('Arty','O');
     const arrayOfPlayers = [playerOne,playerTwo]
     let activePlayer = arrayOfPlayers[Math.floor(Math.random()*2)]
